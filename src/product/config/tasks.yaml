@@ -1,0 +1,166 @@
+market_landscape_task:
+  description: >
+    Analyze the existing solution landscape for this product idea: {product_idea}
+    targeting this customer segment: {target_customer}.
+    Consider these constraints: {constraints}.
+    
+    **Your job:**
+    1. Use serper_search to find 3-5 direct competitors or similar products
+    2. Use WebsiteSearchTool to visit their websites and extract:
+       - Product positioning (what they claim to do)
+       - Key features (what they actually offer)
+       - Pricing models (how they charge)
+       - Target customers (who they serve)
+    
+    Focus on publicly observable information only. Do not speculate.
+    
+  expected_output: >
+    A structured overview of up to five competitors or solution categories:
+    
+    For each competitor:
+    - Company/Product name and website URL
+    - Positioning statement
+    - Top 3-5 features
+    - Pricing model (free/freemium/subscription/one-time)
+    - Observed strengths and gaps (factual, not evaluative)
+    
+    Include a note about market patterns (e.g., "Most competitors use freemium model")
+    
+  agent: market_landscape_agent
+
+
+subreddit_discovery_task:
+  description: >
+    Identify 3-5 relevant subreddits for: {product_idea} targeting {target_customer}
+    
+    **You MUST specify actual subreddit names, NOT defaults.**
+    
+    Think about where {target_customer} hangs out on Reddit.
+    
+    Examples:
+    - Dating app users → r/Tinder, r/Bumble, r/dating_advice, r/india
+    - Fitness enthusiasts → r/fitness, r/bodyweightfitness, r/loseit
+    - Developers → r/programming, r/webdev, r/learnprogramming
+    - Parents → r/Parenting, r/daddit, r/Mommit
+    
+    Only search r/all if absolutely no niche subreddits exist for this audience.
+    
+  expected_output: >
+    A simple list of 3-5 specific subreddits (NOT r/all):
+    - r/specificsubreddit1 (brief reason why relevant)
+    - r/specificsubreddit2 (brief reason why relevant)
+    - r/specificsubreddit3 (brief reason why relevant)
+    
+  agent: customer_pain_agent
+
+customer_pain_task:
+  description: >
+    **CRITICAL: You MUST use the exact subreddits from the previous task output.**
+    
+    Extract real customer pain points for {product_idea} targeting {target_customer}.
+    
+    **Your job:**
+    1. Read the previous task output and extract the subreddit names
+    2. For EACH subreddit mentioned, use "Reddit RSS Feed Search" tool
+    3. Search with pain-related keywords from {product_idea}
+    
+    **Search strategy:**
+    - Extract key pain keywords from {product_idea} (e.g., "dating app frustration", "interview prep struggle")
+    - Add emotional modifiers (frustrated, annoying, painful, difficult, hate, struggle, anxiety)
+    - Prioritize posts with high engagement (50+ upvotes, 10+ comments)
+    - Look for specific friction points and unmet needs
+    
+    **DO NOT use default subreddits. ONLY use the ones identified in the previous task.**
+    
+  expected_output: >
+    A structured list of 5 recurring pain themes with:
+    - Direct quotes from Reddit posts (properly attributed with subreddit and upvotes)
+    - Subreddit sources cited (e.g., "r/Tinder - 234 upvotes")
+    - Engagement metrics (upvotes/comments)
+    - Emotional intensity rating (low/medium/high)
+    - Frequency estimate based on number of matching posts
+    
+    Include a "Data Quality Note" that acknowledges:
+    - Sample limitations (Reddit demographics skew young, tech-savvy, Western)
+    - Potential selection bias
+    - Non-representative nature of Reddit discussions
+    
+  agent: customer_pain_agent
+
+opportunity_sizing_task:
+  description: >
+    Provide a conservative, assumption-driven assessment of the potential
+    business opportunity for this product idea: {product_idea}
+    targeting this customer: {target_customer}
+    with these constraints: {constraints}.
+    
+    **Your job:**
+    1. Use serper_search to find market size reports for the relevant industry
+       - Search queries like: "{industry} market size India", "TAM SAM SOM {vertical}"
+    2. Use WebsiteSearchTool to scrape industry reports, analyst data
+    3. Base TAM/SAM/SOM on discovered data, not assumptions
+    
+    Base your assessment on:
+    - Market landscape identified earlier
+    - Customer pain signals from Reddit
+    - Industry data you discover
+    
+    **Be conservative and transparent about data quality.**
+    
+  expected_output: >
+    A transparent market sizing assessment:
+    
+    **TAM (Total Addressable Market):**
+    - Size estimate (with range if uncertain)
+    - Data source (e.g., "Statista 2024 report")
+    - Key assumptions
+    
+    **SAM (Serviceable Addressable Market):**
+    - Size estimate (narrowed to your constraints)
+    - Geographic/demographic filters applied
+    - Assumptions
+    
+    **SOM (Serviceable Obtainable Market):**
+    - Realistic first-year capture (1-5% of SAM typically)
+    - Adoption friction factors
+    - Competitive dynamics
+    
+    **Willingness to Pay:**
+    - Inferred from competitor pricing
+    - Reddit discussions about pricing
+    
+    **Data Quality Note:**
+    Explicitly state confidence level (high/medium/low) and evidence gaps.
+    
+  agent: opportunity_sizing_agent
+
+risk_assumptions_task:
+  description: >
+    Critically evaluate the risks, unknowns, and weak assumptions present in
+    the prior analyses for this product idea: {product_idea}
+    with these constraints: {constraints}.
+    
+    Challenge optimistic interpretations and surface evidence gaps.
+    
+  expected_output: >
+    A concise list of key risks with severity and evidence strength, critical
+    unknowns that require validation, and clear invalidation triggers that
+    would change the overall assessment.
+    
+  agent: risk_assumptions_agent
+
+final_strategy_task:
+  description: >
+    Synthesize all prior analyses to produce a clear product recommendation
+    for this product idea: {product_idea}
+    targeting this customer: {target_customer}
+    with these constraints: {constraints}.
+    
+    Resolve conflicting signals, weigh trade-offs, and force a decision under uncertainty.
+    
+  expected_output: >
+    A final product recommendation (proceed, proceed with constraints, or do
+    not proceed) with confidence level, rationale, top concerns, and concrete
+    30/60/90-day next steps.
+    
+  agent: strategy_synthesizer_agent
