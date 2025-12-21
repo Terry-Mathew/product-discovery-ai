@@ -1,54 +1,90 @@
-# Product Crew
+# 🚀 Product Discovery AI
 
-Welcome to the Product Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+**Validate your product idea in minutes, not weeks.**
 
-## Installation
+Product Discovery AI is a sophisticated multi-agent platform designed to automate deep market research. It leverages a "crew" of specialized AI agents to analyze competitors, mine customer pain signals from social media, calculate market size (TAM/SAM/SOM), and challenge your assumptions—all while you watch their live brainstorming process in a premium dashboard.
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+---
 
-First, if you haven't already, install uv:
+## 🧠 The Agent Crew
 
+Your project is powered by **CrewAI**, orchestrating five specialized consultants:
+
+1.  **🔍 Market Landscape Analyst**: Maps out the competitive landscape, identifying top players and their pricing/positioning.
+2.  **💬 Customer Pain Analyst**: Mines Reddit for authentic customer frustrations and unmet needs using real engagement data.
+3.  **📊 Opportunity Sizing Analyst**: Provides conservative, data-driven market estimates (TAM, SAM, SOM) based on industry reports.
+4.  **⚠️ Risk Reviewer**: Challenges optimistic assumptions and surfaces critical unknowns.
+5.  **🎯 Strategy Synthesizer**: Resolves signals to produce a final Go/No-Go recommendation with a concrete 30/60/90-day roadmap.
+
+---
+
+## ✨ Features
+
+*   **Premium Gradio Dashboard**: A beautiful, intuitive interface for inputting product details and viewing results.
+*   **Live Agent Thinking**: A dedicated "Agent Thinking" tab that streams the raw terminal output of the agents' brainstorming and tool usage in real-time.
+*   **Structured Analysis Sections**: Rich Markdown reports for each stage of the analysis (Competition, Pain Points, Market Sizing, Risks).
+*   **Social Mining**: Integrated tools to extract data from Reddit subreddits relevant to your specific target audience.
+
+---
+
+## 🛠️ Setup & Installation
+
+This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management.
+
+### 1. Prerequisites
+- Python 3.10 to 3.13
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your system.
+
+### 2. Clone and Initialize
 ```bash
-pip install uv
+git clone https://github.com/Terry-Mathew/Product-CrewAi.git
+cd Product-CrewAi
+uv sync
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
+### 3. Environment Configuration
+Create a `.env` file in the root directory and add your API keys:
+```env
+OPENAI_API_KEY=your_key_here
+SERPER_API_KEY=your_key_here
+REDDIT_CLIENT_ID=optional
+REDDIT_CLIENT_SECRET=optional
 ```
-### Customizing
+> [!NOTE]
+> `SERPER_API_KEY` is required for web search and competitor research.
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+---
 
-- Modify `src/product/config/agents.yaml` to define your agents
-- Modify `src/product/config/tasks.yaml` to define your tasks
-- Modify `src/product/crew.py` to add your own logic, tools and specific args
-- Modify `src/product/main.py` to add custom inputs for your agents and tasks
+## 🚀 Usage
 
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
+### Launch the Dashboard
+To start the interactive AI dashboard, run:
 ```bash
-$ crewai run
+uv run app_basic.py
+```
+After a few seconds, the UI will be available at `http://127.0.0.1:7860`.
+
+### Running via CLI
+You can also run the crew directly from the terminal:
+```bash
+uv run run_crew
 ```
 
-This command initializes the product Crew, assembling the agents and assigning them tasks as defined in your configuration.
+---
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+## 📁 Project Structure
 
-## Understanding Your Crew
+```text
+├── src/product/
+│   ├── config/             # YAML configurations for agents and tasks
+│   ├── tools/              # Custom tools (Reddit mining, Serper search)
+│   ├── crew.py             # Agent orchestration logic
+│   └── main.py             # CLI entry point
+├── app_basic.py            # Enhanced Gradio Dashboard
+└── pyproject.toml          # Project dependencies and metadata
+```
 
-The product Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+---
 
-## Support
-
-For support, questions, or feedback regarding the Product Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+## 🔗 Project Link
+Check out the latest updates here: [Product-CrewAi on GitHub](https://github.com/Terry-Mathew/Product-CrewAi.git)
