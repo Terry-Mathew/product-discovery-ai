@@ -438,20 +438,7 @@ inputs=[product_idea, target_customer, constraints, industry, vertical],
                         lines=20
                     )
     
-    # Info section
-    gr.Markdown("""
-    ---
-    ### 🤖 How It Works
-    
-    Our AI crew consists of 5 specialized agents:
-    1. **🔍 Market Landscape Analyst** - Maps competitive landscape
-    2. **💬 Customer Pain Analyst** - Mines Reddit for authentic pain signals
-    3. **📊 Opportunity Sizing Analyst** - Calculates TAM/SAM/SOM
-    4. **⚠️ Risk Reviewer** - Challenges assumptions and identifies risks
-    5. **🎯 Strategy Synthesizer** - Makes final go/no-go recommendation
-    
-    **Expected runtime:** 3-5 minutes
-    """)
+
     
     # Wire up the submit button
     submit_btn.click(
